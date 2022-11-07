@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>672</width>
-    <height>544</height>
+    <width>795</width>
+    <height>632</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,8 +22,8 @@
   <widget class="QPushButton" name="Browse_Button">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>490</y>
+     <x>310</x>
+     <y>580</y>
      <width>71</width>
      <height>31</height>
     </rect>
@@ -54,7 +54,7 @@
   <widget class="QGraphicsView" name="Sagittal_Plane">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>400</x>
      <y>50</y>
      <width>281</width>
      <height>181</height>
@@ -65,7 +65,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>290</y>
+     <y>320</y>
      <width>281</width>
      <height>181</height>
     </rect>
@@ -74,8 +74,8 @@
   <widget class="QGraphicsView" name="Diagonal_Plane">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>290</y>
+     <x>400</x>
+     <y>320</y>
      <width>281</width>
      <height>181</height>
     </rect>
@@ -102,7 +102,7 @@
   <widget class="QLabel" name="Sagittal_Label">
    <property name="geometry">
     <rect>
-     <x>330</x>
+     <x>400</x>
      <y>10</y>
      <width>131</width>
      <height>31</height>
@@ -120,8 +120,8 @@
   <widget class="QLabel" name="Coronal_Label">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>250</y>
+     <x>10</x>
+     <y>280</y>
      <width>131</width>
      <height>31</height>
     </rect>
@@ -138,8 +138,8 @@
   <widget class="QLabel" name="Diagonal_Label">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>250</y>
+     <x>400</x>
+     <y>280</y>
      <width>131</width>
      <height>31</height>
     </rect>
@@ -151,6 +151,110 @@
    </property>
    <property name="text">
     <string>Diagonal Plane:</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="AxialHorizontalSlider">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>240</y>
+     <width>281</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="CoronalHorizontalSlider">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>510</y>
+     <width>281</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="SagittalHorizontalSlider">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>240</y>
+     <width>281</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="DiagonalHorizontalSlider">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>510</y>
+     <width>281</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="AxialVerticalSlider">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>60</y>
+     <width>22</width>
+     <height>160</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="CoronalVerticalSlider">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>330</y>
+     <width>22</width>
+     <height>160</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="SagittalVerticalSlider">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>60</y>
+     <width>22</width>
+     <height>160</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QSlider" name="DiagonalVerticalSlider">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>330</y>
+     <width>22</width>
+     <height>160</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
    </property>
   </widget>
  </widget>

@@ -25,6 +25,11 @@ class Dicom_Viewer_App(QMainWindow , ui):
         self.data_set_path=""
         self.volume3d=""
         self.handle_buttons()
+        self.AxialHorizontalSlider.valueChanged.connect(self.viewing_planes)
+        self.AxialVerticalSlider.valueChanged.connect(self.viewing_planes)
+        
+        
+
 
     def Graphic_Scene(self,fig_width,fig_height,view,bool=True):
         '''Setting up a canvas to view an image in its graphics view'''
@@ -41,6 +46,7 @@ class Dicom_Viewer_App(QMainWindow , ui):
         else:
             axes.get_xaxis().set_visible(True)
             axes.get_yaxis().set_visible(True)
+        self.show()
         return figure,axes
       
 
@@ -74,31 +80,53 @@ class Dicom_Viewer_App(QMainWindow , ui):
             array2D=s.pixel_array
             self.volume3d[:,:,i]= array2D
 
+        self.set_sliders_limits()
+
         # viewing plane
-        self.viewing_planes(self.Axial_Plane)
-        self.viewing_planes(self.Coronal_Plane)
-        self.viewing_planes(self.Sagittal_Plane)
+        self.viewing_planes()
+        # self.viewing_planes(self.Coronal_Plane)
+        # self.viewing_planes(self.Sagittal_Plane)
 
+    def set_sliders_limits(self):
+        self.AxialHorizontalSlider.setMinimum(0)
+        self.AxialHorizontalSlider.setMaximum(self.volume3d.shape[0])
+        self.AxialHorizontalSlider.setValue(0)
+        self.AxialHorizontalSlider.setTickInterval(1)
 
-    def viewing_planes(self, plane):    
-        figure, axis = self.Graphic_Scene(201, 170, plane)
-        if (plane == self.Axial_Plane):
-           axis.imshow(self.volume3d[:,:,0], cmap="gray") # first slice in z
-        if (plane == self.Coronal_Plane):   
-            axis.imshow(np.rot90(self.volume3d[:,256,:]), cmap="gray") 
-        if (plane == self.Sagittal_Plane):   
-            axis.imshow(np.rot90(self.volume3d[256,:,:]), cmap="gray") 
+        self.AxialVerticalSlider.setMinimum(-self.volume3d.shape[1])
+        self.AxialVerticalSlider.setMaximum(0)
+        self.AxialVerticalSlider.setValue(0)
+        self.AxialVerticalSlider.setTickInterval(1)
 
+    def viewing_planes(self):    
+        self.axial_figure, self.axial_axis = self.Graphic_Scene(201, 170, self.Axial_Plane)
+        self.sagittal_figure, self.sagittal_axis = self.Graphic_Scene(201, 170, self.Sagittal_Plane)
+        self.coronal_figure, self.coronal_axis = self.Graphic_Scene(201, 170, self.Coronal_Plane)
 
-  
+        self.axial_axis.imshow(self.volume3d[:,:,0], cmap="gray") # first slice in z
+        self.sagittal_axis.imshow(np.rot90(self.volume3d[:,256,:]), cmap="gray") 
+        self.coronal_axis.imshow(np.rot90(self.volume3d[256,:,:]), cmap="gray")
+         
+        # self.axial_axis.axvline(x = 50, color = 'b', label = 'axvline - full height')
+        # self.show()
+        #self.draw()
+        self.AxialHorizontalSlider_changed()
+        self.AxialVerticalSlider_changed()
 
         
             
+    def AxialHorizontalSlider_changed(self):
+        my_value = self.AxialHorizontalSlider.value()
+        self.axial_axis.axvline(x = my_value, color = 'b', label = 'axvline - full height')
+        self.show()
+        print(my_value)
 
-               
-
-        # self.browse_bar.setText(self.dicom_path)
-        #check if folder was selected
+    def AxialVerticalSlider_changed(self):
+        my_value = self.AxialVerticalSlider.value()
+        self.axial_axis.axhline(y = -my_value, color = 'b', label = 'axvline - full height')
+        self.show()
+        print(my_value)
+    
 
         
 
