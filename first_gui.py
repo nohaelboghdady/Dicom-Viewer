@@ -27,6 +27,10 @@ class Dicom_Viewer_App(QMainWindow , ui):
         self.handle_buttons()
         self.AxialHorizontalSlider.valueChanged.connect(self.viewing_planes)
         self.AxialVerticalSlider.valueChanged.connect(self.viewing_planes)
+        self.SagittalHorizontalSlider.valueChanged.connect(self.viewing_planes)
+        self.SagittalVerticalSlider.valueChanged.connect(self.viewing_planes)
+        self.CoronalHorizontalSlider.valueChanged.connect(self.viewing_planes)
+        self.CoronalVerticalSlider.valueChanged.connect(self.viewing_planes)
         
         
 
@@ -80,23 +84,56 @@ class Dicom_Viewer_App(QMainWindow , ui):
             array2D=s.pixel_array
             self.volume3d[:,:,i]= array2D
 
-        self.set_sliders_limits()
+        self.set_sliders_limits([self.AxialHorizontalSlider, self.SagittalHorizontalSlider, self.CoronalHorizontalSlider, self.AxialVerticalSlider, self.SagittalVerticalSlider, self.CoronalVerticalSlider])
 
         # viewing plane
         self.viewing_planes()
         # self.viewing_planes(self.Coronal_Plane)
         # self.viewing_planes(self.Sagittal_Plane)
 
-    def set_sliders_limits(self):
-        self.AxialHorizontalSlider.setMinimum(0)
-        self.AxialHorizontalSlider.setMaximum(self.volume3d.shape[0])
-        self.AxialHorizontalSlider.setValue(0)
-        self.AxialHorizontalSlider.setTickInterval(1)
+    def set_sliders_limits(self, sliders):
+        for i, slider in enumerate(sliders):
+            slider.setValue(0)
+            slider.setTickInterval(1)
+            if i > 2 :
+                slider.setMaximum(0)
+                if i == 3:
+                    slider.setMinimum(-self.volume3d.shape[1])
+                else:
+                    slider.setMinimum(-self.volume3d.shape[2])
+            else:
+                slider.setMinimum(0)
+                slider.setMaximum(self.volume3d.shape[0])
 
-        self.AxialVerticalSlider.setMinimum(-self.volume3d.shape[1])
-        self.AxialVerticalSlider.setMaximum(0)
-        self.AxialVerticalSlider.setValue(0)
-        self.AxialVerticalSlider.setTickInterval(1)
+        # self.AxialHorizontalSlider.setMinimum(0)
+        # self.AxialHorizontalSlider.setMaximum(self.volume3d.shape[0])
+        # self.AxialHorizontalSlider.setValue(0)
+        # self.AxialHorizontalSlider.setTickInterval(1)
+
+        # self.AxialVerticalSlider.setMinimum(-self.volume3d.shape[1])
+        # self.AxialVerticalSlider.setMaximum(0)
+        # self.AxialVerticalSlider.setValue(0)
+        # self.AxialVerticalSlider.setTickInterval(1)
+
+        # self.SagittalHorizontalSlider.setMinimum(0)
+        # self.SagittalHorizontalSlider.setMaximum(self.volume3d.shape[0])
+        # self.SagittalHorizontalSlider.setValue(0)
+        # self.SagittalHorizontalSlider.setTickInterval(1)
+
+        # self.SagittalVerticalSlider.setMinimum(-self.volume3d.shape[2])
+        # self.SagittalVerticalSlider.setMaximum(0)
+        # self.SagittalVerticalSlider.setValue(0)
+        # self.SagittalVerticalSlider.setTickInterval(1)
+
+        # self.CoronalHorizontalSlider.setMinimum(0)
+        # self.CoronalHorizontalSlider.setMaximum(self.volume3d.shape[0])
+        # self.CoronalHorizontalSlider.setValue(0)
+        # self.CoronalHorizontalSlider.setTickInterval(1)
+
+        # self.CoronalVerticalSlider.setMinimum(-self.volume3d.shape[2])
+        # self.CoronalVerticalSlider.setMaximum(0)
+        # self.CoronalVerticalSlider.setValue(0)
+        # self.CoronalVerticalSlider.setTickInterval(1)
 
     def viewing_planes(self):    
         self.axial_figure, self.axial_axis = self.Graphic_Scene(201, 170, self.Axial_Plane)
@@ -110,22 +147,65 @@ class Dicom_Viewer_App(QMainWindow , ui):
         # self.axial_axis.axvline(x = 50, color = 'b', label = 'axvline - full height')
         # self.show()
         #self.draw()
-        self.AxialHorizontalSlider_changed()
-        self.AxialVerticalSlider_changed()
+        self.OnSlidersChange(self.AxialHorizontalSlider,self.axial_axis,False)
+        self.OnSlidersChange(self.AxialVerticalSlider,self.axial_axis,True)
+        self.OnSlidersChange(self.SagittalHorizontalSlider,self.sagittal_axis,False)
+        self.OnSlidersChange(self.SagittalVerticalSlider,self.sagittal_axis,True)
+        self.OnSlidersChange(self.CoronalHorizontalSlider,self.coronal_axis,False)
+        self.OnSlidersChange(self.CoronalVerticalSlider,self.coronal_axis,True)
+        #self.AxialHorizontalSlider_changed()
+        #self.AxialVerticalSlider_changed()
+        # self.SagittalHorizontalSlider_changed()
+        # self.SagittalVerticalSlider_changed()
+        # self.CoronalHorizontalSlider_changed()
+        # self.CoronalVerticalSlider_changed()
 
         
             
-    def AxialHorizontalSlider_changed(self):
-        my_value = self.AxialHorizontalSlider.value()
-        self.axial_axis.axvline(x = my_value, color = 'b', label = 'axvline - full height')
+    def OnSlidersChange(self, slider, axes, isVertical):
+        my_value = slider.value()
+        if isVertical:
+            axes.axhline(y = -my_value, color = 'b', label = 'axvline - full height')
+        else:
+            axes.axvline(x = my_value, color = 'b', label = 'axvline - full height')
         self.show()
         print(my_value)
 
-    def AxialVerticalSlider_changed(self):
-        my_value = self.AxialVerticalSlider.value()
-        self.axial_axis.axhline(y = -my_value, color = 'b', label = 'axvline - full height')
-        self.show()
-        print(my_value)
+    # def AxialHorizontalSlider_changed(self):
+    #     my_value = self.AxialHorizontalSlider.value()
+    #     self.axial_axis.axvline(x = my_value, color = 'b', label = 'axvline - full height')
+    #     self.show()
+    #     print(my_value)
+
+    # def AxialVerticalSlider_changed(self):
+    #     my_value = self.AxialVerticalSlider.value()
+    #     self.axial_axis.axhline(y = -my_value, color = 'b', label = 'axvline - full height')
+    #     self.show()
+    #     print(my_value)
+
+    # def SagittalHorizontalSlider_changed(self):
+    #     my_value = self.SagittalHorizontalSlider.value()
+    #     self.sagittal_axis.axvline(x = my_value, color = 'b', label = 'axvline - full height')
+    #     self.show()
+    #     print(my_value)
+
+    # def SagittalVerticalSlider_changed(self):
+    #     my_value = self.SagittalVerticalSlider.value()
+    #     self.sagittal_axis.axhline(y = -my_value, color = 'b', label = 'axvline - full height')
+    #     self.show()
+    #     print(my_value)
+        
+    # def CoronalHorizontalSlider_changed(self):
+    #     my_value = self.CoronalHorizontalSlider.value()
+    #     self.coronal_axis.axvline(x = my_value, color = 'b', label = 'axvline - full height')
+    #     self.show()
+    #     print(my_value)
+
+    # def CoronalVerticalSlider_changed(self):
+    #     my_value = self.CoronalVerticalSlider.value()
+    #     self.coronal_axis.axhline(y = -my_value, color = 'b', label = 'axvline - full height')
+    #     self.show()
+    #     print(my_value)
     
 
         
