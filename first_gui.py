@@ -105,35 +105,7 @@ class Dicom_Viewer_App(QMainWindow , ui):
                 slider.setMinimum(0)
                 slider.setMaximum(self.volume3d.shape[0])
 
-        # self.AxialHorizontalSlider.setMinimum(0)
-        # self.AxialHorizontalSlider.setMaximum(self.volume3d.shape[0])
-        # self.AxialHorizontalSlider.setValue(0)
-        # self.AxialHorizontalSlider.setTickInterval(1)
-
-        # self.AxialVerticalSlider.setMinimum(-self.volume3d.shape[1])
-        # self.AxialVerticalSlider.setMaximum(0)
-        # self.AxialVerticalSlider.setValue(0)
-        # self.AxialVerticalSlider.setTickInterval(1)
-
-        # self.SagittalHorizontalSlider.setMinimum(0)
-        # self.SagittalHorizontalSlider.setMaximum(self.volume3d.shape[0])
-        # self.SagittalHorizontalSlider.setValue(0)
-        # self.SagittalHorizontalSlider.setTickInterval(1)
-
-        # self.SagittalVerticalSlider.setMinimum(-self.volume3d.shape[2])
-        # self.SagittalVerticalSlider.setMaximum(0)
-        # self.SagittalVerticalSlider.setValue(0)
-        # self.SagittalVerticalSlider.setTickInterval(1)
-
-        # self.CoronalHorizontalSlider.setMinimum(0)
-        # self.CoronalHorizontalSlider.setMaximum(self.volume3d.shape[0])
-        # self.CoronalHorizontalSlider.setValue(0)
-        # self.CoronalHorizontalSlider.setTickInterval(1)
-
-        # self.CoronalVerticalSlider.setMinimum(-self.volume3d.shape[2])
-        # self.CoronalVerticalSlider.setMaximum(0)
-        # self.CoronalVerticalSlider.setValue(0)
-        # self.CoronalVerticalSlider.setTickInterval(1)
+        
 
     def viewing_planes(self):    
         self.axial_figure, self.axial_axis = self.Graphic_Scene(201, 170, self.Axial_Plane)
@@ -153,13 +125,6 @@ class Dicom_Viewer_App(QMainWindow , ui):
         self.OnSlidersChange(self.SagittalVerticalSlider,self.sagittal_axis,True)
         self.OnSlidersChange(self.CoronalHorizontalSlider,self.coronal_axis,False)
         self.OnSlidersChange(self.CoronalVerticalSlider,self.coronal_axis,True)
-        #self.AxialHorizontalSlider_changed()
-        #self.AxialVerticalSlider_changed()
-        # self.SagittalHorizontalSlider_changed()
-        # self.SagittalVerticalSlider_changed()
-        # self.CoronalHorizontalSlider_changed()
-        # self.CoronalVerticalSlider_changed()
-
         
             
     def OnSlidersChange(self, slider, axes, isVertical):
@@ -170,45 +135,6 @@ class Dicom_Viewer_App(QMainWindow , ui):
             axes.axvline(x = my_value, color = 'b', label = 'axvline - full height')
         self.show()
         print(my_value)
-
-    # def AxialHorizontalSlider_changed(self):
-    #     my_value = self.AxialHorizontalSlider.value()
-    #     self.axial_axis.axvline(x = my_value, color = 'b', label = 'axvline - full height')
-    #     self.show()
-    #     print(my_value)
-
-    # def AxialVerticalSlider_changed(self):
-    #     my_value = self.AxialVerticalSlider.value()
-    #     self.axial_axis.axhline(y = -my_value, color = 'b', label = 'axvline - full height')
-    #     self.show()
-    #     print(my_value)
-
-    # def SagittalHorizontalSlider_changed(self):
-    #     my_value = self.SagittalHorizontalSlider.value()
-    #     self.sagittal_axis.axvline(x = my_value, color = 'b', label = 'axvline - full height')
-    #     self.show()
-    #     print(my_value)
-
-    # def SagittalVerticalSlider_changed(self):
-    #     my_value = self.SagittalVerticalSlider.value()
-    #     self.sagittal_axis.axhline(y = -my_value, color = 'b', label = 'axvline - full height')
-    #     self.show()
-    #     print(my_value)
-        
-    # def CoronalHorizontalSlider_changed(self):
-    #     my_value = self.CoronalHorizontalSlider.value()
-    #     self.coronal_axis.axvline(x = my_value, color = 'b', label = 'axvline - full height')
-    #     self.show()
-    #     print(my_value)
-
-    # def CoronalVerticalSlider_changed(self):
-    #     my_value = self.CoronalVerticalSlider.value()
-    #     self.coronal_axis.axhline(y = -my_value, color = 'b', label = 'axvline - full height')
-    #     self.show()
-    #     print(my_value)
-    
-
-        
 
 
 
